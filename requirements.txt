@@ -1,3 +1,5 @@
 cloudscraper
 mistralai
 python-dotenv
+tomli
+tomli-w
