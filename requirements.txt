@@ -1,0 +1,3 @@
+cloudscraper
+mistralai
+python-dotenv
