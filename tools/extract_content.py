@@ -92,7 +92,7 @@ class BillMarkdownExtractor:
             print(f"congress directory not found: {congress_dir}")
             return
 
-        bill_dirs = [d for d in congress_dir.iterdir() if d.is_dir()]
+        bill_dirs = [d for d in congress_dir.iterdir() if d.is_dir() and not d.name.startswith("_")]
         if not bill_dirs:
             print(f"No bill directories found in {congress_label}")
             return

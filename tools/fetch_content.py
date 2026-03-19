@@ -69,7 +69,7 @@ class BillContentDownloader:
             print(f"congress directory not found: {congress_dir}")
             return
 
-        bill_dirs = [d for d in congress_dir.iterdir() if d.is_dir()]
+        bill_dirs = [d for d in congress_dir.iterdir() if d.is_dir() and not d.name.startswith("_")]
         print(f"Found {len(bill_dirs)} bills in {congress_label}")
 
         for idx, bill_dir in enumerate(bill_dirs, 1):
