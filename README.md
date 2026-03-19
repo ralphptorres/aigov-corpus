@@ -14,9 +14,11 @@ At this stage, the corpus includes house bills and resolutions from the 15th, 16
 
 Each document is stored as:
 
-- a machine-readable Markdown file
-- an original PDF copy
-- a `metadata.json` file describing the document
+- a `metadata.json` describing the document
+- a markdown version of the document extracted from scanned image-based pdfs
+- a toml file with useful info for content segments
+  - LLM-generated summaries and tags, human-verified
+  - human-generated metadata e.g. editor's notes
 
 ## How do I get it?
 
