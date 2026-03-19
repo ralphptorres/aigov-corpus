@@ -272,6 +272,9 @@ Bill content with line numbers:
         print(f"  Processing {len(segments)} segments...")
         processed_count = 0
         
+        if "segments" not in segments_toml:
+            segments_toml["segments"] = {}
+
         for idx, (seg_id, segment_text) in enumerate(segments.items(), 1):
             # First check if segment is substantive
             summary = self.summarize_segment(segment_text)
@@ -289,8 +292,7 @@ Bill content with line numbers:
             if not tags:
                 continue
             
-            # Add to dict
-            segments_toml[f"segments.{seg_id}"] = {
+            segments_toml["segments"][seg_id] = {
                 "summary": summary,
                 "tags": tags
             }
