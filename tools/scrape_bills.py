@@ -17,7 +17,7 @@ CONGRESS_MAP = {
 
 BASE_URL = "https://senate.gov.ph/legacy/api/v1/lis"
 PDF_BASE_URL = "https://senate.gov.ph/legacy/lis_bills"
-DATA_DIR = Path(__file__).parent / "data" / "ph-senate"
+DATA_DIR = Path(__file__).parent.parent / "data" / "ph-senate"
 
 
 class SenateScraper:
