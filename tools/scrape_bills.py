@@ -20,7 +20,7 @@ PDF_BASE_URL = "https://senate.gov.ph/legacy/lis_bills"
 DATA_DIR = Path(__file__).parent.parent / "data" / "ph-senate"
 
 
-class SenateScraper:
+class BillScraper:
     def __init__(
         self, congress_id: int = CONGRESS_ID, data_dir: Path = DATA_DIR
     ) -> None:
@@ -98,26 +98,7 @@ class SenateScraper:
             json.dump(data, f, indent=2, ensure_ascii=False)
         print(f"  metadata saved: {json_path.name}")
 
-    def download_pdf(self, bill_dir: Path, bill_number: str, pdf_url: str) -> bool:
-        try:
-            pdf_path = bill_dir / f"{bill_number}.pdf"
 
-            if pdf_path.exists():
-                print(f"  pdf already exists: {pdf_path.name}")
-                return True
-
-            response = self.scraper.get(pdf_url)
-            if response.status_code == 200:
-                with open(pdf_path, "wb") as f:
-                    f.write(response.content)
-                print(f"  pdf downloaded: {pdf_path.name}")
-                return True
-            else:
-                print(f"  failed to download pdf: {response.status_code}")
-                return False
-        except Exception as e:
-            print(f"  error downloading pdf: {e}")
-            return False
 
     def prepare_metadata(
         self,
@@ -181,11 +162,6 @@ class SenateScraper:
             metadata = self.prepare_metadata(bill, comp_data, documents)
             self.save_metadata(bill_dir, metadata)
 
-            if documents:
-                print("Downloading pdfs:")
-                for doc in documents:
-                    self.download_pdf(bill_dir, bill_number, doc["pdf_url"])
-
             result = {
                 "bill_number": bill_number,
                 "bill_dir": bill_dir,
@@ -199,7 +175,7 @@ class SenateScraper:
 
 
 if __name__ == "__main__":
-    scraper = SenateScraper(congress_id=CONGRESS_ID)
+    scraper = BillScraper(congress_id=CONGRESS_ID)
     results = scraper.scrape_and_save(limit=20)
     print(f"\n{'=' * 80}")
     print(f"Successfully processed {len(results)} bills")
